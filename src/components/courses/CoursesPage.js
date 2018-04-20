@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 
 class CoursesPage extends React.Component {
@@ -13,7 +14,7 @@ class CoursesPage extends React.Component {
     };
 
     this.onClickSave = this.onClickSave.bind (this);
-    this.onTitleChange = this.onTitleChange.bind (this);
+    //this.onTitleChange = this.onTitleChange.bind (this);
   }
 
   onTitleChange (e) {
@@ -29,7 +30,7 @@ class CoursesPage extends React.Component {
 
   // the code of event handler was moved to the action 
   onClickSave () {
-    this.props.dispatch (courseActions.createCourse (this.state.course));
+    this.props.actions.createCourse (this.state.course);
   }
   /* let course = Object.assign ({}, this.state.course);
   this.setState (prevState => ({ courses: [...prevState.courses, course] });
@@ -48,7 +49,7 @@ class CoursesPage extends React.Component {
         </ul>
         <h2>Add courses</h2>
         <input type="text"
-               onChange={this.onTitleChange}
+               onChange={e => this.onTitleChange(e)}
                value={this.state.course.title}/>
         <input type="submit"
                value="Save"
@@ -68,13 +69,22 @@ const mapStateToProps = (state, ownProps) => {
 };
 // return state.courseReducer data as props.courses
 
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators (courseActions, dispatch)
+    //createCourse: course => dispatch (courseActions.createCourse (course))
+  }
+};
+
 // connect function connects react component with redux
 // connect () returns a function, which takes CoursesPage as a parameter
 
 CoursesPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  courses: PropTypes.array.isRequired
+  courses: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(CoursesPage);
+export default connect (mapStateToProps, mapDispatchToProps) (CoursesPage);
 
