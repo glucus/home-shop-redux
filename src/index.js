@@ -6,6 +6,8 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import courseReducer from './reducers/courseReducer';
+import paymentReducer from './reducers/paymentReducer';
+
 import {Provider} from 'react-redux';
 
 //middleware: 
@@ -26,7 +28,10 @@ let routes = (
 );
 
 // creating store
-const rootReducer = combineReducers ({courseReducer});
+const rootReducer = combineReducers ({
+  courseReducer, paymentReducer
+});
+
 const store = createStore (rootReducer); 
 
 // const initialState = { courses: [] };

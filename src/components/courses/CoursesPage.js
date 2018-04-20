@@ -9,8 +9,7 @@ class CoursesPage extends React.Component {
     super (props);
     this.state = {
       course: {title: ''},
-      courses: []//,
-      //idCounter: 0
+      courses: []
     };
 
     this.onClickSave = this.onClickSave.bind (this);
@@ -18,12 +17,10 @@ class CoursesPage extends React.Component {
   }
 
   onTitleChange (e) {
-    //let idCounter = this.state.idCounter;
     
     this.setState ({
       course: {
-        title: e.target.value//, 
-        //id: idCounter
+        title: e.target.value
       }
     });
   }
@@ -40,7 +37,6 @@ class CoursesPage extends React.Component {
   render () {
     return (
       <div>
-        <p>next id: {this.state.idCounter}</p>
         <h1>Courses</h1>
         <ul>
           {this.props.courses.map (
@@ -75,7 +71,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators (courseActions, dispatch)
     //createCourse: course => dispatch (courseActions.createCourse (course))
-  }
+  };
 };
 
 // connect function connects react component with redux
